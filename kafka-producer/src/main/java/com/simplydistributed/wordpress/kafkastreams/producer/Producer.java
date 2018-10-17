@@ -61,8 +61,9 @@ public class Producer implements Runnable {
                 
                 for (int i = 1; i <= 10; i++) {
                     String key = "machine-" + i;
-                    String value = String.valueOf(rnd.nextInt(20));
-                    record = new ProducerRecord<>(TOPIC_NAME, key, value);
+                    String rand = String.valueOf(rnd.nextInt(20));
+                    String value = "{\"record\":{\"machine\":"+i+",\"cpu\":"+rand+",\"memory\":"+rand+",\"status\":\"okay\"}}";
+                    record = new ProducerRecord<>(TOPIC_NAME, null, value);
 
                     kafkaProducer.send(record, new Callback() {
                         @Override
